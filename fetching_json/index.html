@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax - fetching a JSON</title>
+</head>
+
+<body>
+    <button id="button1">Get User</button>
+    <button id="button2">Get Users</button>
+    <br>
+    <div id="user"></div>
+    <br>
+    <div id="users"></div>
+
+    <script>
+        const button1 = document.getElementById("button1");
+        const button2 = document.getElementById("button2");
+        const userDiv = document.getElementById("user");
+        const usersDiv = document.getElementById("users");
+        const xhr = new XMLHttpRequest();
+
+        function loadUser() {
+            xhr.open("GET", "./user.json", true);
+
+            xhr.onprogress = function() {
+                userDiv.innerHTML = "Loading..."
+            }
+
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    const user = JSON.parse(this.responseText)
+                    const ul = createUL(user[0]);
+                    userDiv.innerHTML = "";
+                    userDiv.innerHTML = ul;
+                } else {
+                    console.log("An Error occured");
+                }
+            }
+
+            xhr.onerror = function () {
+                console.log("An Error occured");
+            }
+
+            xhr.send();
+        }
+
+        function loadUsers() {
+            usersDiv.innerHTML = "";
+            xhr.open("GET", "./users.json", true);
+
+            xhr.onprogress = function() {
+                usersDiv.innerHTML = "Loading..."
+            }
+
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    usersDiv.innerHTML = ""
+                    response.map((user) => {
+                        const ul = createUL(user);
+                        usersDiv.innerHTML = usersDiv.innerHTML + ul;
+                    })
+                }
+            }
+
+             xhr.onerror = function () {
+                console.log("An Error occured");
+            }
+
+            xhr.send();
+        }
+
+        function createUL(user) {
+            return ("<ul>" +
+                `<li>ID: ${user.id}</li>` +
+                `<li>Name: ${user.name}</li>` +
+                `<li>Course: ${user.course}</li>` + "</ul>");
+        }
+
+        button1.addEventListener("click", loadUser);
+        button2.addEventListener("click", loadUsers);
+    </script>
+</body>
+
+</html>

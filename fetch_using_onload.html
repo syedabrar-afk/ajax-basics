@@ -1,0 +1,44 @@
+<!-- This code displays making an Ajax request using the onload method. -->
+<!-- The onload method is the most widely used one and it does not provide any information about the changing states of the AJAX connection.  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajax - fetching a text file</title>
+</head>
+<body>
+   <button id="button">Get Text File</button>
+   <br>
+   <p id="para"></p>
+
+   <script>
+    const button = document.getElementById("button");
+    const para = document.getElementById("para");
+
+    button.addEventListener("click", getFile);
+
+    function getFile() {
+        // Creating the XMLHttpRequest Object
+        const xhr = new XMLHttpRequest();
+        // Opening a connection (options - method, URL, isAsync)
+        xhr.open('GET', 'sample.txt', true);
+        // function that runs after the resource has successfully loaded
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                para.innerHTML = xhr.responseText;
+            } else if (xhr.status == 404) {
+                para.innerHTML = "Could not find the file. Kindly make sure the URL is correct"
+            }
+        }
+        // function to handle errors
+        xhr.onerror = function() {
+            para.innerHTML = "An Error has occured"
+        }
+        // sending the request
+        xhr.send();
+    }
+   </script>
+</body>
+</html>
