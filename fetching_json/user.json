@@ -1,5 +1,5 @@
 [{
     "id": 1,
-    "name": "John Doe",
+    "name": "<script>alert(1)</script>",
     "course": "Cyber Security"
 }]

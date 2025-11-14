@@ -1,0 +1,32 @@
+h1 {
+    color: rgb(0, 142, 185);
+    text-align: center;
+}
+
+label {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+main {
+    width: 50%;
+    margin: auto;
+}
+
+input {
+    width: 350px;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style: none;
+    padding: 5px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    margin: 3px;
+    width: 350px;
+}
